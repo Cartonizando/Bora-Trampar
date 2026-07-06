@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Entrevista Simulada</title>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+body{
+background: url('imagens/fundo-entrevista.png') no-repeat center center fixed;
+background-size: cover;
+min-height: 100vh;
+padding:25px;
+}
+
+.home{
+position:fixed;
+top:15px;
+left:15px;
+width:65px;
+height:65px;
+display:flex;
+justify-content:center;
+align-items:center;
+text-decoration:none;
+z-index:999;
+transition:0.2s;
+}
+.home:hover{
+transform:translateY(-5px);
+filter: brightness(0.9);
+}
+.home img{
+width:100%;
+height:100%;
+object-fit:contain;
+}
+
+.topo{
+display:flex;
+justify-content:space-between;
+align-items:flex-start;
+margin-top:80px;
+margin-bottom:30px;
+}
+.esquerda{
+display:flex;
+align-items:center;
+gap:30px;
+}
+.mascote{
+width:460px;
+}
+.caixa-fala{
+width:500px;
+min-height:180px;
+background:#d9dbe2;
+border:5px solid black;
+box-shadow:8px 8px 0 #555;
+padding:25px;
+font-size:22px;
+line-height:1.6;
+}
+.info{
+width:250px;
+background:#d9dbe2;
+border:5px solid black;
+box-shadow:8px 8px 0 #555;
+padding:20px;
+font-size:20px;
+}
+
+.perguntas{
+background:#d9dbe2;
+border:5px solid black;
+box-shadow:10px 10px 0 #555;
+padding:35px;
+min-height:500px;
+}
+.numero{
+font-size:30px;
+font-weight:bold;
+margin-bottom:20px;
+}
+.questao{
+font-size:28px;
+margin-bottom:30px;
+}
+.opcao{
+display:block;
+margin:15px 0;
+padding:18px;
+background:white;
+border:4px solid black;
+cursor:pointer;
+font-size:22px;
+transition:0.2s;
+}
+.opcao:hover{
+transform:translateX(10px);
+background:#eeeeee;
+}
+.botao{
+margin-top:30px;
+padding:18px 40px;
+font-size:22px;
+font-weight:bold;
+background:#f1d25c;
+border:4px solid black;
+cursor:pointer;
+box-shadow:5px 5px 0 #555;
+}
+.botao:hover{
+transform:translateY(-4px);
+}
+#resultado{
+display:none;
+margin-top:30px;
+background:white;
+border:4px solid black;
+padding:30px;
+font-size:22px;
+}
+@media(max-width:1000px){
+.topo{
+flex-direction:column;
+gap:30px;
+}
+.esquerda{
+flex-direction:column;
+}
+.caixa-fala{
+width:100%;
+}
+.info{
+width:100%;
+}
+.mascote{
+width:200px;
+}
+}
+</style>
+</head>
+<body>
+
+<a class="home" href="index.html">
+    <img src="imagens/home.png" alt="Home">
+</a>
+<div class="topo">
+<div class="esquerda">
+<img class="mascote"
+src="imagens/Mascote-entrevista.png">
+<div class="caixa-fala" id="fala">
+Olá! Eu serei seu entrevistador. Responda como se estivesse em uma entrevista de emprego real.
+</div>
+</div>
+<div class="info">
+<b>ENTREVISTA</b>
+<br><br>
+10 perguntas
+<br><br>
+Nível: Iniciante
+<br><br>
+Tempo livre
+</div>
+</div>
+<div class="perguntas">
+<div class="numero" id="numero">
+Pergunta 1 de 10
+</div>
+<div class="questao" id="pergunta"></div>
+<div id="respostas"></div>
+<button class="botao" onclick="proxima()">
+Próxima
+</button>
+<div id="resultado"></div>
+</div>
+
+<script>
+const perguntas = [
+{
+fala:"Fale um pouco sobre você.",
+pergunta:"Como você se apresentaria em uma entrevista?",
+opcoes:[
+["Sou responsável e gosto de aprender.",2],
+["Não sei o que dizer.",1],
+["Prefiro não responder.",0]
+]
+},
+{
+fala:"Por que quer trabalhar aqui?",
+pergunta:"Qual resposta seria melhor?",
+opcoes:[
+["Quero crescer profissionalmente.",2],
+["Preciso de dinheiro.",1],
+["Não tenho motivo.",0]
+]
+},
+{
+fala:"Como você lida com críticas?",
+pergunta:"Seu chefe corrige um erro seu.",
+opcoes:[
+["Escuto e procuro melhorar.",2],
+["Fico chateado.",1],
+["Ignoro.",0]
+]
+},
+{
+fala:"Você trabalha bem em equipe?",
+pergunta:"Um colega precisa de ajuda.",
+opcoes:[
+["Ajudo sem problemas.",2],
+["Depende.",1],
+["Não ajudo.",0]
+]
+},
+{
+fala:"Organização é importante.",
+pergunta:"Como você lida com prazos?",
+opcoes:[
+["Planejo meu tempo.",2],
+["Faço quando dá.",1],
+["Costumo atrasar.",0]
+]
+},
+{
+fala:"Aprender é importante.",
+pergunta:"Você recebe uma tarefa nova.",
+opcoes:[
+["Procuro aprender.",2],
+["Espero alguém fazer.",1],
+["Desisto.",0]
+]
+},
+{
+fala:"Assumir erros demonstra maturidade.",
+pergunta:"Você comete um erro no trabalho.",
+opcoes:[
+["Assumo e corrijo.",2],
+["Depende da situação.",1],
+["Escondo o erro.",0]
+]
+},
+{
+fala:"Pesquise sobre a empresa.",
+pergunta:"Antes da entrevista você:",
+opcoes:[
+["Pesquiso a empresa.",2],
+["Olho rapidamente.",1],
+["Não pesquiso.",0]
+]
+},
+{
+fala:"Pense no futuro.",
+pergunta:"Onde você se vê em cinco anos?",
+opcoes:[
+["Crescendo profissionalmente.",2],
+["Não sei.",1],
+["Nunca pensei nisso.",0]
+]
+},
+{
+fala:"Última pergunta.",
+pergunta:"Por que a empresa deveria contratar você?",
+opcoes:[
+["Sou dedicado e quero aprender.",2],
+["Talvez eu consiga.",1],
+["Não sei.",0]
+]
+}
+];
+
+let atual = 0;
+let pontos = 0;
+
+function carregar(){
+document.getElementById("numero").innerHTML =
+"Pergunta " + (atual+1) + " de 10";
+document.getElementById("fala").innerHTML =
+perguntas[atual].fala;
+document.getElementById("pergunta").innerHTML =
+perguntas[atual].pergunta;
+let html="";
+perguntas[atual].opcoes.forEach((op,i)=>{
+html += `
+<label class="opcao">
+<input type="radio" name="resp" value="${op[1]}">
+${op[0]}
+</label>
+`;
+});
+document.getElementById("respostas").innerHTML = html;
+}
+
+function proxima(){
+let marcada =
+document.querySelector('input[name="resp"]:checked');
+if(!marcada){
+alert("Escolha uma resposta.");
+return;
+}
+pontos += Number(marcada.value);
+atual++;
+if(atual >= perguntas.length){
+mostrarResultado();
+return;
+}
+carregar();
+}
+
+function mostrarResultado(){
+document.getElementById("numero").style.display="none";
+document.getElementById("pergunta").style.display="none";
+document.getElementById("respostas").style.display="none";
+document.querySelector(".botao").style.display="none";
+
+let titulo="";
+let texto="";
+if(pontos <= 8){
+titulo="Precisa Melhorar";
+texto="Você ainda pode desenvolver habilidades importantes para entrevistas.";
+}
+else if(pontos <= 14){
+titulo="Bom Potencial";
+texto="Você possui várias qualidades e pode melhorar ainda mais.";
+}
+else if(pontos <= 18){
+titulo="Bom Perfil Profissional";
+texto="Você demonstrou responsabilidade e maturidade.";
+}
+else{
+titulo="Excelente Perfil";
+texto="Você apresentou características muito valorizadas pelas empresas.";
+}
+
+document.getElementById("fala").innerHTML =
+"Entrevista finalizada!";
+document.getElementById("resultado").style.display="block";
+document.getElementById("resultado").innerHTML =
+"<h2>"+titulo+"</h2><br>" +
+"<b>Pontuação:</b> "+pontos+"/20<br><br>" +
+texto +
+"<br><br><b>Dica:</b> Continue desenvolvendo comunicação, responsabilidade e organização.";
+}
+
+carregar();
+</script>
+</body>
+</html>

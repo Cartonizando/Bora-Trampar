@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guia de Carreira</title>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, sans-serif;
+}
+body{
+background: url('imagens/fundo-guia-carreira.png') no-repeat center center fixed;
+background-size: cover;
+min-height: 100vh;
+padding:25px;
+}
+
+.home{
+position:fixed;
+top:15px;
+left:15px;
+width:65px;
+height:65px;
+display:flex;
+justify-content:center;
+align-items:center;
+text-decoration:none;
+z-index:999;
+transition:0.2s;
+}
+.home:hover{
+transform:translateY(-5px);
+filter: brightness(0.9);
+}
+.home img{
+width:100%;
+height:100%;
+object-fit:contain;
+}
+
+.topo{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px;
+margin-top:80px;
+}
+.box-intro{
+width:70%;
+background:#D9DEE8;
+border:4px solid #000;
+box-shadow:6px 6px 0 #444;
+padding:20px;
+}
+.box-intro h2{
+margin-top:0;
+}
+.mascote{
+width:220px;
+}
+
+.container{
+margin:20px;
+background:#D9DEE8;
+border:4px solid #000;
+box-shadow:8px 8px 0 #444;
+padding:20px;
+min-height:500px;
+}
+
+.btn-area,
+.btn-job{
+background:#F2D55C;
+border:3px solid #000;
+padding:10px 15px;
+margin:5px;
+cursor:pointer;
+font-weight:bold;
+box-shadow:3px 3px 0 #333;
+transition:0.2s;
+}
+.btn-area:hover,
+.btn-job:hover{
+background:#E7C33B;
+transform:translateY(-3px);
+}
+
+.section{
+margin-top:20px;
+padding-top:15px;
+border-top:3px dashed #444;
+}
+.hidden{
+display:none;
+}
+.info{
+margin-top:20px;
+padding:15px;
+background:white;
+border:3px solid black;
+}
+.info h3{
+margin-top:0;
+}
+</style>
+</head>
+<body>
+
+<a class="home" href="index.html">
+    <img src="imagens/home.png" alt="Home">
+</a>
+<div class="topo">
+<div class="box-intro">
+<h2>Bem-vindo ao Guia de Carreira!</h2>
+<p>
+Explore diferentes profissões, descubra os requisitos,
+áreas de atuação e encontre a carreira ideal para você.
+</p>
+</div>
+<img class="mascote"
+src="imagens/Mascote-guia-carreira.png" alt="Mascote">
+</div>
+<div class="container">
+<h2>Escolha uma área:</h2>
+<button class="btn-area" onclick="showArea('humanas')">
+Humanas
+</button>
+<button class="btn-area" onclick="showArea('exatas')">
+Exatas
+</button>
+<button class="btn-area" onclick="showArea('saude')">
+Saúde
+</button>
+
+<div id="humanas" class="section hidden">
+<h3>Profissões de Humanas</h3>
+<button class="btn-job" onclick="showJob('advogado')">Advogado</button>
+<button class="btn-job" onclick="showJob('psicologo')">Psicólogo</button>
+<button class="btn-job" onclick="showJob('professor')">Professor</button>
+<button class="btn-job" onclick="showJob('jornalista')">Jornalista</button>
+<button class="btn-job" onclick="showJob('administrador')">Administrador</button>
+</div>
+
+<div id="exatas" class="section hidden">
+<h3>Profissões de Exatas</h3>
+<button class="btn-job" onclick="showJob('programador')">Programador</button>
+<button class="btn-job" onclick="showJob('engenheiro')">Engenheiro Civil</button>
+<button class="btn-job" onclick="showJob('arquiteto')">Arquiteto</button>
+<button class="btn-job" onclick="showJob('dados')">Analista de Dados</button>
+<button class="btn-job" onclick="showJob('web')">Desenvolvedor Web</button>
+</div>
+
+<div id="saude" class="section hidden">
+<h3>Profissões da Saúde</h3>
+<button class="btn-job" onclick="showJob('medico')">Médico</button>
+<button class="btn-job" onclick="showJob('enfermeiro')">Enfermeiro</button>
+<button class="btn-job" onclick="showJob('dentista')">Dentista</button>
+<button class="btn-job" onclick="showJob('veterinario')">Veterinário</button>
+<button class="btn-job" onclick="showJob('nutricionista')">Nutricionista</button>
+</div>
+
+<div id="advogado" class="info hidden">
+<h3>Advogado</h3>
+<p><b>O que faz:</b> Defende os direitos de pessoas e empresas.</p>
+<p><b>Requisitos:</b> Faculdade de Direito e aprovação na OAB.</p>
+<p><b>Duração:</b> 5 anos.</p>
+</div>
+<div id="psicologo" class="info hidden">
+<h3>Psicólogo</h3>
+<p><b>O que faz:</b> Ajuda pessoas em questões emocionais e mentais.</p>
+<p><b>Requisitos:</b> Faculdade de Psicologia e registro profissional.</p>
+<p><b>Duração:</b> 5 anos.</p>
+</div>
+<div id="professor" class="info hidden">
+<h3>Professor</h3>
+<p><b>O que faz:</b> Ensina e orienta estudantes.</p>
+<p><b>Requisitos:</b> Licenciatura na área desejada.</p>
+<p><b>Duração:</b> 4 anos.</p>
+</div>
+<div id="jornalista" class="info hidden">
+<h3>Jornalista</h3>
+<p><b>O que faz:</b> Produz notícias e reportagens.</p>
+<p><b>Requisitos:</b> Curso de Jornalismo.</p>
+<p><b>Duração:</b> 4 anos.</p>
+</div>
+<div id="administrador" class="info hidden">
+<h3>Administrador</h3>
+<p><b>O que faz:</b> Gerencia empresas e equipes.</p>
+<p><b>Requisitos:</b> Faculdade de Administração.</p>
+<p><b>Duração:</b> 4 anos.</p>
+</div>
+<div id="programador" class="info hidden">
+<h3>Programador</h3>
+<p><b>O que faz:</b> Desenvolve sistemas e programs.</p>
+<p><b>Requisitos:</b> Conhecimento em programação.</p>
+<p><b>Duração:</b> 2 a 4 anos.</p>
+</div>
+<div id="engenheiro" class="info hidden">
+<h3>Engenheiro Civil</h3>
+<p><b>O que faz:</b> Planeja e acompanha obras.</p>
+<p><b>Requisitos:</b> Engenharia Civil e CREA.</p>
+<p><b>Duração:</b> 5 anos.</p>
+</div>
+<div id="arquiteto" class="info hidden">
+<h3>Arquiteto</h3>
+<p><b>O que faz:</b> Desenvolve projetos de construções.</p>
+<p><b>Requisitos:</b> Arquitetura e Urbanismo.</p>
+<p><b>Duração:</b> 5 anos.</p>
+</div>
+<div id="dados" class="info hidden">
+<h3>Analista de Dados</h3>
+<p><b>O que faz:</b> Analisa informações e estatísticas.</p>
+<p><b>Requisitos:</b> Conhecimento em dados e programação.</p>
+<p><b>Duração:</b> 3 a 4 anos.</p>
+</div>
+<div id="web" class="info hidden">
+<h3>Desenvolvedor Web</h3>
+<p><b>O que faz:</b> Cria sites e aplicações web.</p>
+<p><b>Requisitos:</b> HTML, CSS e JavaScript.</p>
+<p><b>Duração:</b> 2 a 4 anos.</p>
+</div>
+<div id="medico" class="info hidden">
+<h3>Médico</h3>
+<p><b>O que faz:</b> Diagnostica e trata doenças.</p>
+<p><b>Requisitos:</b> Faculdade de Medicina e CRM.</p>
+<p><b>Duração:</b> 6 anos.</p>
+</div>
+<div id="enfermeiro" class="info hidden">
+<h3>Enfermeiro</h3>
+<p><b>O que faz:</b> Cuida dos pacientes e auxilia tratamentos.</p>
+<p><b>Requisitos:</b> Faculdade de Enfermagem.</p>
+<p><b>Duração:</b> 4 anos.</p>
+</div>
+<div id="dentista" class="info hidden">
+<h3>Dentista</h3>
+<p><b>O que faz:</b> Cuida da saúde bucal.</p>
+<p><b>Requisitos:</b> Odontologia e CRO.</p>
+<p><b>Duração:</b> 5 anos.</p>
+</div>
+<div id="veterinario" class="info hidden">
+<h3>Veterinário</h3>
+<p><b>O que faz:</b> Cuida da saúde dos animais.</p>
+<p><b>Requisitos:</b> Medicina Veterinária.</p>
+<p><b>Duração:</b> 5 anos.</p>
+</div>
+<div id="nutricionista" class="info hidden">
+<h3>Nutricionista</h3>
+<p><b>O que faz:</b> Orienta sobre alimentação e saúde.</p>
+<p><b>Requisitos:</b> Nutrição e CRN.</p>
+<p><b>Duração:</b> 4 anos.</p>
+</div>
+</div>
+
+<script>
+function showArea(area){
+    document.querySelectorAll('.section').forEach(
+        e => e.classList.add('hidden')
+    );
+    document.querySelectorAll('.info').forEach(
+        e => e.classList.add('hidden')
+    );
+    document.getElementById(area).classList.remove('hidden');
+}
+function showJob(job){
+    document.querySelectorAll('.info').forEach(
+        e => e.classList.add('hidden')
+    );
+    document.getElementById(job).classList.remove('hidden');
+}
+</script>
+</body>
+</html>

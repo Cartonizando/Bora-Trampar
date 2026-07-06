@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Teste Vocacional</title>
+<style>
+body {
+    background: url('imagens/fundo-teste-vocacional.png') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    padding: 20px;
+    margin: 0;
+}
+
+.home {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    width: 65px;
+    height: 65px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    z-index: 999;
+    transition: 0.2s;
+}
+.home:hover {
+    transform: translateY(-5px);
+    filter: brightness(0.9);
+}
+.home img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.interface-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.topo-layout {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 5px;
+}
+.caixa-topo-vazia {
+    background: #e5ebf5;
+    border: 3px solid black;
+    width: 60%;
+    min-height: 120px;
+    padding: 20px;
+    font-size: 1.1rem;
+    line-height: 1.5;
+    position: relative;
+}
+
+.caixa-topo-vazia::after, .perguntas::after, #resultadoVocacional::after {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    bottom: -12px;
+    right: -12px;
+    width: 100%;
+    height: 100%;
+    border: 3px solid black;
+    background: repeating-linear-gradient(
+        45deg,
+        #000,
+        #000 2px,
+        transparent 2px,
+        transparent 6px
+    );
+}
+.mascote-topo {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    margin-bottom: -10px;
+}
+
+.perguntas {
+    background: #e5ebf5;
+    border: 4px solid black;
+    width: 100%;
+    padding: 35px;
+    position: relative;
+    margin-top: 10px;
+}
+.progresso {
+    background: white;
+    border: 3px solid black;
+    padding: 15px;
+    margin-bottom: 35px;
+}
+.progresso-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 12px;
+}
+.barra {
+    height: 20px;
+    background: #ddd;
+    border: 3px solid black;
+    overflow: hidden;
+}
+
+#barraPreenchimento {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, #8c52ff, #a06eff);
+    transition: .4s;
+}
+.titulo-perguntas {
+    font-size: 26px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+.pergunta {
+    background: white;
+    border: 3px solid black;
+    padding: 20px;
+    margin-bottom: 25px;
+}
+.pergunta h3 {
+    margin-bottom: 15px;
+    font-size: 20px;
+}
+.opcoes label {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    margin-bottom: 8px;
+    border: 2px solid transparent;
+    cursor: pointer;
+    font-size: 17px;
+    transition: 0.2s;
+}
+.opcoes label:hover {
+    background: #f3ebff;
+}
+
+.opcoes label:has(input:checked) {
+    background: #ecdef3;
+    border: 2px solid #8c52ff;
+    font-weight: bold;
+}
+.opcoes input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 3px solid black;
+    border-radius: 50%;
+    background: white;
+    cursor: pointer;
+    position: relative;
+}
+.opcoes input[type="radio"]:checked {
+    background: #8c52ff;
+}
+.botao {
+    display: block;
+    margin: 30px auto 0;
+    padding: 15px 35px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #ffd54f;
+    border: 3px solid black;
+    cursor: pointer;
+    box-shadow: 4px 4px 0 #000;
+    transition: 0.1s;
+}
+.botao:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0 #000;
+}
+
+#resultadoVocacional {
+    display: none;
+    background: #fff7d6;
+    border: 4px solid black;
+    width: 100%;
+    padding: 35px;
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+.grafico-resultado {
+    margin: 25px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.barra-resultado-container {
+    background: white;
+    border: 2px solid black;
+    padding: 12px;
+}
+.label-resultado {
+    font-weight: bold;
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+.barra-interna-res {
+    height: 18px;
+    background: #8c52ff;
+    width: 0%;
+    transition: 1s ease-out;
+}
+@media(max-width: 900px) {
+    .topo-layout {
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 20px;
+    }
+    .caixa-topo-vazia {
+        width: 100%;
+    }
+}
+</style>
+</head>
+<body>
+
+<a class="home" href="index.html" onclick="location.reload();">
+    <img src="imagens/home.png" alt="Home">
+</a>
+<div class="interface-container">
+
+    <div class="topo-layout">
+        <div class="caixa-topo-vazia">
+            <strong>Bem-vindo ao Novo Teste Vocacional!</strong><br><br>
+            Descubra a sua afinidade exata entre as áreas de <strong>Humanas, Exatas ou Saúde</strong> respondendo com atenção às 15 perguntas.
+        </div>
+        <img class="mascote-topo" src="imagens/Mascote-teste-vocacional.png" alt="Mascote">
+    </div>
+
+    <div class="perguntas" id="blocoPerguntas">
+       
+        <div class="progresso">
+            <div class="progresso-info">
+                <span>Progresso</span>
+                <span id="contador">0 de 15 respondidas</span>
+            </div>
+            <div class="barra">
+                <div id="barraPreenchimento"></div>
+            </div>
+        </div>
+        <h2 class="titulo-perguntas">Perguntas do Teste</h2>
+        <form id="teste">
+
+            <div class="pergunta">
+                <h3>1. O que você mais gosta de fazer no seu tempo livre?</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p1" value="exatas" onchange="atualizarProgresso()"> Desenvolver pequenos projetos, jogos ou focar em raciocínio lógico.</label>
+                    <label><input type="radio" name="p1" value="saude" onchange="atualizarProgresso()"> Praticar esportes, cuidar do bem-estar ou ler sobre o corpo humano.</label>
+                    <label><input type="radio" name="p1" value="humanas" onchange="atualizarProgresso()"> Escrever, desenhar, assistir a documentários históricos ou debater ideias.</label>
+                </div>
+            </div>
+
+            <div class="pergunta">
+                <h3>2. Em um ambiente profissional, qual o seu principal objetivo?</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p2" value="exatas" onchange="atualizarProgresso()"> Encontrar soluções exatas e otimizar processos analíticos.</label>
+                    <label><input type="radio" name="p2" value="saude" onchange="atualizarProgresso()"> Tratar, acolher e melhorar diretamente a qualidade de vida das pessoas.</label>
+                    <label><input type="radio" name="p2" value="humanas" onchange="atualizarProgresso()"> Compreender o comportamento da sociedade, ensinar ou criar produções artísticas.</label>
+                </div>
+            </div>
+
+            <div class="pergunta">
+                <h3>3. Qual dessas disciplinas escolares você tinha mais facilidade ou interesse?</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p3" value="exatas" onchange="atualizarProgresso()"> Matemática, Física ou Química.</label>
+                    <label><input type="radio" name="p3" value="saude" onchange="atualizarProgresso()"> Biologia ou Ciências Naturais.</label>
+                    <label><input type="radio" name="p3" value="humanas" onchange="atualizarProgresso()"> História, Geografia, Português ou Filosofia.</label>
+                </div>
+            </div>
+
+            <div class="pergunta">
+                <h3>4. Qual projeto prático parece ser mais empolgante para você?</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p4" value="exatas" onchange="atualizarProgresso()"> Programar softwares, estruturar dados ou projetar sistemas modernos.</label>
+                    <label><input type="radio" name="p4" value="saude" onchange="atualizarProgresso()"> Atuar ativamente em uma clínica, hospital ou pesquisa laboratorial.</label>
+                    <label><input type="radio" name="p4" value="humanas" onchange="atualizarProgresso()"> Produzir uma campanha de comunicação, escrever um livro ou dirigir um vídeo corporativo.</label>
+                </div>
+            </div>
+
+            <div class="pergunta">
+                <h3>5. Como você costuma lidar ou resolver um desentendimento em grupo?</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p5" value="exatas" onchange="atualizarProgresso()"> Analiso os fatos friamente sob métricas lógicas para achar o ponto de erro.</label>
+                    <label><input type="radio" name="p5" value="saude" onchange="atualizarProgresso()"> Tento acalmar os envolvidos focando no cuidado psicológico e físico de cada um.</label>
+                    <label><input type="radio" name="p5" value="humanas" onchange="atualizarProgresso()"> Abro espaço para o diálogo aberto, avaliando o contexto social e cultural do problema.</label>
+                </div>
+            </div>
+
+            <div class="pergunta">
+                <h3>6. Se você ganhasse um reconhecimento público, gostaria que fosse por:</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p6" value="exatas" onchange="atualizarProgresso()"> Desenvolver uma nova tecnologia, engenharia complexa ou modelo econômico.</label>
+                    <label><input type="radio" name="p6" value="saude" onchange="atualizarProgresso()"> Descobrir um tratamento inovador ou salvar vidas em situações críticas.</label>
+                    <label><input type="radio" name="p6" value="humanas" onchange="atualizarProgresso()"> Defender uma causa humanitária importante ou produzir uma grande obra cultural.</label>
+                </div>
+            </div>
+
+            <div class="pergunta">
+                <h3>7. Qual desses ambientes de trabalho mais te agrada visualmente?</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p7" value="exatas" onchange="atualizarProgresso()"> Um escritório de desenvolvimento integrado repleto de telas e softwares.</label>
+                    <label><input type="radio" name="p7" value="saude" onchange="atualizarProgresso()"> Um espaço de saúde, consultório integrado ou laboratório químico.</label>
+                    <label><input type="radio" name="p7" value="humanas" onchange="atualizarProgresso()"> Uma agência criativa aberta, sala de aula interativa ou ambiente cultural.</label>
+                </div>
+            </div>
+
+            <div class="pergunta">
+                <h3>8. Diante de um desafio inédito e muito difícil, você:</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p8" value="exatas" onchange="atualizarProgresso()"> Busca imediatamente manuais, dados precisos ou fórmulas matemáticas.</label>
+                    <label><input type="radio" name="p8" value="saude" onchange="atualizarProgresso()"> Avalia como aquilo pode afetar a segurança biológica ou física das pessoas.</label>
+                    <label><input type="radio" name="p8" value="humanas" onchange="atualizarProgresso()"> Tenta enxergar novas perspectivas criativas e humanas para contornar a barreira.</label>
+                </div>
+            </div>
+
+            <div class="pergunta">
+                <h3>9. Que tipo de assunto te dá mais curiosidade ao assistir um documentário?</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p9" value="exatas" onchange="atualizarProgresso()"> Avanços em computação quântica, criptografia ou engenharia espacial.</label>
+                    <label><input type="radio" name="p9" value="saude" onchange="atualizarProgresso()"> Mistérios do cérebro humano, medicina diagnóstica ou o ecossistema celular.</label>
+                    <label><input type="radio" name="p9" value="humanas" onchange="atualizarProgresso()"> Revoluções históricas, correntes filosóficas ou análises de comportamento social.</label>
+                </div>
+            </div>
+
+            <div class="pergunta">
+                <h3>10. Quando você organiza um projeto grande, sua maior preocupação é:</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p10" value="exatas" onchange="atualizarProgresso()"> Garantir a precisão de dados, planilhas e métricas financeiras.</label>
+                    <label><input type="radio" name="p10" value="saude" onchange="atualizarProgresso()"> Certificar de que todos tenham ergonomia, segurança e bem-estar físico.</label>
+                    <label><input type="radio" name="p10" value="humanas" onchange="atualizarProgresso()"> Criar um bom ambiente comunicativo, estético e alinhamento de ideias.</label>
+                </div>
+            </div>
+
+            <div class="pergunta">
+                <h3>11. Qual destas competências você gostaria de treinar no seu dia a dia?</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p11" value="exatas" onchange="atualizarProgresso()"> Lógica de algoritmos ou modelagem estatística.</label>
+                    <label><input type="radio" name="p11" value="saude" onchange="atualizarProgresso()"> Práticas terapêuticas, primeiros socorros ou técnicas de reabilitação.</label>
+                    <label><input type="radio" name="p11" value="humanas" onchange="atualizarProgresso()"> Oratória persuasiva, técnicas de redação ou artes visuais.</label>
+                </div>
+            </div>
+
+            <div class="pergunta">
+                <h3>12. Se sua equipe precisasse de um líder em um momento de crise, você focaria em:</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p12" value="exatas" onchange="atualizarProgresso()"> Analisar os cronogramas, prazos técnicos e cortar desperdícios objetivos.</label>
+                    <label><input type="radio" name="p12" value="saude" onchange="atualizarProgresso()"> Mitigar o estresse físico, mental e garantir recursos básicos para a equipe.</label>
+                    <label><input type="radio" name="p12" value="humanas" onchange="atualizarProgresso()"> Ouvir as queixas, motivar o grupo através da fala e mediar relações interpessoais.</label>
+                </div>
+            </div>
+
+            <div class="pergunta">
+                <h3>13. Qual dessas ferramentas te causa mais interesse profissional?</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p13" value="exatas" onchange="atualizarProgresso()"> Compiladores de código, calculadoras científicas ou softwares de desenho técnico.</label>
+                    <label><input type="radio" name="p13" value="saude" onchange="atualizarProgresso()"> Equipamentos de triagem clínica, exames por imagem ou substâncias químicas.</label>
+                    <label><input type="radio" name="p13" value="humanas" onchange="atualizarProgresso()"> Câmeras profissionais de gravação, editores de imagens ou livros literários.</label>
+                </div>
+            </div>
+
+            <div class="pergunta">
+                <h3>14. O que mais te desmotiva em uma tarefa diária?</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p14" value="exatas" onchange="atualizarProgresso()"> Trabalhar sem um método lógico claro, dependendo apenas do acaso.</label>
+                    <label><input type="radio" name="p14" value="saude" onchange="atualizarProgresso()"> Atuar em locais com pouca empatia humana ou descaso com a saúde do indivíduo.</label>
+                    <label><input type="radio" name="p14" value="humanas" onchange="atualizarProgresso()"> Seguir ordens robóticas e rígidas que barram o pensamento crítico ou expressivo.</label>
+                </div>
+            </div>
+
+            <div class="pergunta">
+                <h3>15. Para você, uma meta concluída com sucesso absoluto significa:</h3>
+                <div class="opcoes">
+                    <label><input type="radio" name="p15" value="exatas" onchange="atualizarProgresso()"> Uma estrutura lógica segura, testada e perfeitamente calibrada rodando.</label>
+                    <label><input type="radio" name="p15" value="saude" onchange="atualizarProgresso()"> Um indivíduo tratado, medicado ou reabilitado fisicamente.</label>
+                    <label><input type="radio" name="p15" value="humanas" onchange="atualizarProgresso()"> Uma ideia social disseminada, uma história contada ou uma pessoa ensinada.</label>
+                </div>
+            </div>
+            <button type="button" class="botao" onclick="calcularResultado()">Ver Resultado Vocacional</button>
+        </form>
+    </div>
+
+    <div id="resultadoVocacional">
+        <h2 style="font-size: 28px; margin-bottom: 10px;">📊 Seu Perfil Vocacional</h2>
+        <p id="textoIndicacao" style="font-size: 18px; line-height: 1.6; font-weight: bold; color: #111;"></p>
+       
+        <div class="grafico-resultado">
+            <div class="barra-resultado-container">
+                <div class="label-resultado">
+                    <span>Exatas (Tecnologia/Cálculo/Engenharia)</span>
+                    <span id="txtExatas">0%</span>
+                </div>
+                <div class="barra" style="border: 2px solid black; height: 18px;">
+                    <div id="barExatas" class="barra-interna-res"></div>
+                </div>
+            </div>
+            <div class="barra-resultado-container">
+                <div class="label-resultado">
+                    <span>Humanas (Comunicação/Artes/Sociedade)</span>
+                    <span id="txtHumanas">0%</span>
+                </div>
+                <div class="barra" style="border: 2px solid black; height: 18px;">
+                    <div id="barHumanas" class="barra-interna-res"></div>
+                </div>
+            </div>
+            <div class="barra-resultado-container">
+                <div class="label-resultado">
+                    <span>Saúde (Cuidado/Biologia/Medicina)</span>
+                    <span id="txtSaude">0%</span>
+                </div>
+                <div class="barra" style="border: 2px solid black; height: 18px;">
+                    <div id="barSaude" class="barra-interna-res"></div>
+                </div>
+            </div>
+        </div>
+       
+        <button type="button" class="botao" onclick="location.reload()" style="margin: 20px 0 0 0;">Refazer Teste</button>
+    </div>
+</div>
+
+<script>
+function atualizarProgresso() {
+    const total = 15;
+    const respondidas = document.querySelectorAll('#teste input[type="radio"]:checked').length;
+    const porc = (respondidas / total) * 100;
+    document.getElementById('contador').innerText = `${respondidas} de ${total} respondidas`;
+    document.getElementById('barraPreenchimento').style.width = `${porc}%`;
+}
+
+function calcularResultado() {
+    const totalPerguntas = 15;
+    const selecionados = document.querySelectorAll('#teste input[type="radio"]:checked');
+   
+    if(selecionados.length < totalPerguntas) {
+        alert('Por favor, responda todas as 15 perguntas antes de gerar seu gráfico!');
+        return;
+    }
+   
+    let pontosExatas = 0;
+    let pontosHumanas = 0;
+    let pontosSaude = 0;
+   
+    selecionados.forEach(input => {
+        if(input.value === "exatas") pontosExatas++;
+        if(input.value === "humanas") pontosHumanas++;
+        if(input.value === "saude") pontosSaude++;
+    });
+   
+    const porcExatas = Math.round((pontosExatas / totalPerguntas) * 100);
+    const porcHumanas = Math.round((pontosHumanas / totalPerguntas) * 100);
+    const porcSaude = Math.round((pontosSaude / totalPerguntas) * 100);
+   
+    document.getElementById('blocoPerguntas').style.display = 'none';
+    document.getElementById('resultadoVocacional').style.display = 'block';
+   
+    document.getElementById('txtExatas').innerText = `${porcExatas}%`;
+    document.getElementById('txtHumanas').innerText = `${porcHumanas}%`;
+    document.getElementById('txtSaude').innerText = `${porcSaude}%`;
+   
+    setTimeout(() => {
+        document.getElementById('barExatas').style.width = `${porcExatas}%`;
+        document.getElementById('barHumanas').style.width = `${porcHumanas}%`;
+        document.getElementById('barSaude').style.width = `${porcSaude}%`;
+    }, 100);
+   
+    let indicacao = "";
+    if(pontosExatas >= pontosHumanas && pontosExatas >= pontosSaude) {
+        indicacao = "Seu perfil aponta maior afinidade para EXATAS! Você demonstra aptidão com lógica, sistemas abstratos, programação e análise de dados.";
+    } else if(pontosHumanas >= pontosExatas && pontosHumanas >= pontosSaude) {
+        indicacao = "Seu perfil aponta maior afinidade para HUMANAS! Você demonstra forte sensibilidade com a comunicação, processos artísticos e pensamento crítico.";
+    } else {
+        indicacao = "Seu perfil aponta maior afinidade para SAÚDE! Seus interesses estão voltados ao bem-estar biológico, atendimento humano e ciências biológicas.";
+    }
+   
+    document.getElementById('textoIndicacao').innerText = indicacao;
+}
+</script>
+</body>
+</html>

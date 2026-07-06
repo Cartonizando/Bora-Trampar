@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Currículo Profissional - Bora Trampar</title>
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial, Helvetica, sans-serif;
+}
+body{
+background: url('imagens/fundo-curriculo.png') no-repeat center center fixed;
+background-size: cover;
+min-height: 100vh;
+padding: 20px;
+}
+.home{
+position:fixed;
+top:15px;
+left:15px;
+width:65px;
+height:65px;
+display:flex;
+justify-content:center;
+align-items:center;
+text-decoration:none;
+z-index:999;
+transition:0.2s;
+}
+.home:hover{
+transform:translateY(-5px);
+filter: brightness(0.9);
+}
+.home img{
+width:100%;
+height:100%;
+object-fit:contain;
+}
+.interface-container {
+width: 100%;
+max-width: 1200px;
+margin: auto;
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
+.hidden {
+display: none !important;
+}
+.topo-layout {
+display: flex;
+justify-content: flex-end;
+width: 100%;
+margin-top: 40px;
+margin-bottom: 10px;
+}
+.topo-direito {
+display: flex;
+align-items: center;
+gap: 5px;
+position: relative;
+}
+.caixa-topo-vazia {
+background: #e5ebf5;
+border: 3px solid black;
+width: 280px;
+min-height: 90px;
+box-shadow: 4px 4px 0 #000;
+padding: 12px;
+font-size: 0.95rem;
+line-height: 1.4;
+font-family: "Comic Sans MS", "Chalkboard SE", "Comic Neue", sans-serif;
+z-index: 5;
+}
+.mascote-topo {
+width: 220px;
+height: 220px;
+object-fit: contain;
+margin-top: -50px;
+margin-right: -10px;
+z-index: 10;
+}
+.caixa-bloco {
+background: #e5ebf5;
+border: 3px solid black;
+box-shadow: 5px 5px 0 #000;
+padding: 20px;
+}
+.bloke-horizontal h2 {
+margin-bottom: 10px;
+font-size: 1.3rem;
+}
+.bloke-horizontal p {
+margin: 4px 0;
+font-size: 0.95rem;
+}
+</style>
+</head>
+<style>
+.grid-inferior {
+display: grid;
+grid-template-columns: 1.2fr 1fr;
+gap: 15px;
+width: 100%;
+}
+.coluna-esquerda {
+display: flex;
+flex-direction: column;
+height: 100%;
+cursor: pointer;
+}
+.coluna-esquerda h2 {
+margin-bottom: 12px;
+font-size: 1.2rem;
+}
+.coluna-esquerda p {
+margin-bottom: 8px;
+font-size: 0.9rem;
+line-height: 1.4;
+}
+.coluna-direita-profissional {
+background: #e5ebf5;
+border: 3px solid black;
+box-shadow: 5px 5px 0 #000;
+padding: 10px;
+height: 100%;
+cursor: pointer;
+}
+.sub-coluna-unica {
+background: white;
+padding: 12px;
+position: relative;
+padding-top: 30px;
+height: 100%;
+}
+.sub-coluna-unica::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 18px;
+background: #a3c0b5;
+border-bottom: 2px solid black;
+}
+.sub-coluna-unica h3 {
+font-size: 1.1rem;
+margin-bottom: 8px;
+border-bottom: 2px solid black;
+padding-bottom: 3px;
+font-weight: bold;
+}
+.sub-coluna-unica p {
+font-size: 0.9rem;
+line-height: 1.4;
+color: #333;
+}
+.base-layout {
+display: flex;
+justify-content: space-between;
+align-items: flex-end;
+width: 100%;
+margin-top: 10px;
+}
+.livros-decoracao {
+width: 80px;
+height: auto;
+object-fit: contain;
+}
+.rodape-botoes {
+display: flex;
+gap: 15px;
+}
+.botao-oval {
+background: #34768a;
+border: 3px solid black;
+padding: 12px 25px;
+border-radius: 50px;
+text-decoration: none;
+color: white;
+font-weight: bold;
+font-size: 0.9rem;
+box-shadow: 4px 4px 0 #000;
+transition: 0.2s;
+text-align: center;
+cursor: pointer;
+}
+.botao-oval:hover {
+background: #2b5d6e;
+transform: translateY(-2px);
+}
+.painel-criacao {
+display: grid;
+grid-template-columns: 1fr 1.1fr;
+gap: 25px;
+width: 100%;
+margin-top: 20px;
+}
+.formulario-dados {
+display: flex;
+flex-direction: column;
+gap: 15px;
+}
+.campo-grupo {
+display: flex;
+flex-direction: column;
+gap: 6px;
+}
+.campo-grupo label {
+font-weight: bold;
+font-size: 0.95rem;
+color: #111;
+}
+.campo-grupo input, .campo-grupo textarea {
+padding: 12px;
+border: 3px solid black;
+background: white;
+box-shadow: 4px 4px 0 #000;
+outline: none;
+font-size: 0.95rem;
+}
+.campo-grupo textarea {
+resize: vertical;
+min-height: 90px;
+}
+.area-pdf-container {
+background: white !important;
+border: 1px solid #ddd;
+padding: 50px;
+color: #111;
+min-height: 750px;
+box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+line-height: 1.5;
+word-wrap: break-word;
+}
+.pdf-cabecalho {
+text-align: left;
+margin-bottom: 25px;
+}
+.pdf-nome {
+font-size: 1.7rem;
+font-weight: bold;
+color: #000;
+margin-bottom: 3px;
+}
+.pdf-dados-contato {
+font-size: 0.95rem;
+color: #222;
+line-height: 1.4;
+white-space: pre-wrap;
+}
+.pdf-secao {
+margin-bottom: 20px;
+}
+.pdf-secao h3 {
+font-size: 1rem;
+text-transform: capitalize;
+color: #000;
+background: #dfdfdf;
+padding: 4px 0;
+text-align: center;
+font-weight: bold;
+margin-bottom: 12px;
+border-top: 1px solid #bbb;
+border-bottom: 1px solid #bbb;
+}
+.pdf-secao p {
+font-size: 0.95rem;
+color: #222;
+white-space: pre-wrap;
+padding: 0 5px;
+}
+.pdf-grid-duplo {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 10px;
+padding: 0 5px;
+}
+@media(max-width: 850px) {
+    .grid-inferior, .painel-criacao {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+<body>
+
+<a class="home" href="index.html">
+    <img src="imagens/home.png" alt="Home">
+</a>
+<div class="interface-container">
+    <div class="topo-layout" id="topoSite">
+        <div class="topo-direito">
+            <div class="caixa-topo-vazia" id="textoApresentacao">
+                <strong>Bora Trampar!</strong><br>
+                Monte seu currículo profissional de forma rápida, simples e exporte direto para PDF.
+            </div>
+            <img class="mascote-topo" src="imagens/Mascote-curriculo.png" alt="Mascote">
+        </div>
+    </div>
+    <div id="telaInicial" style="display: flex; flex-direction: column; gap: 20px; width: 100%;">
+        <section class="caixa-bloco bloke-horizontal">
+            <h2>Como fazer um currículo?</h2>
+            <p>1. O que não pode faltar em um currículo?</p>
+            <p>2. Como organizar as informações corretamente?</p>
+            <p>3. Quais experiências devo colocar?</p>
+            <p>4. Como destacar minhas habilidades?</p>
+            <p>5. Como deixar o currículo mais profissional?</p>
+        </section>
+        <div class="grid-inferior">
+            <div class="caixa-bloco coluna-esquerda" onclick="abrirCriador()">
+                <h2>Como montar seu currículo</h2>
+                <p><strong>1.</strong> Dados pessoais: nome, telefone, e-mail e cidade.</p>
+                <p><strong>2.</strong> Objetivo profissional.</p>
+                <p><strong>3.</strong> Formação acadêmica.</p>
+                <p><strong>4.</strong> Experiências profissionais.</p>
+                <p><strong>5.</strong> Habilidades.</p>
+                <p><strong>6.</strong> Cursos complementares.</p>
+            </div>
+            <div class="coluna-direita-profissional" onclick="abrirCriador()">
+                <div class="sub-coluna-unica">
+                    <h3>Currículo Profissional</h3>
+                    <p>Focado para a conquista de emprego ou estágio. Apresente aqui de forma estruturada as suas experiências de mercado, formação estudantil e habilidades.</p>
+                </div>
+            </div>
+        </div>
+        <div class="base-layout">
+            <img class="livros-decoracao" src="imagens/livros.png" alt="Livros">
+            <div class="rodape-botoes">
+                <div class="botao-oval" onclick="abrirCriador()">Criar Profissional</div>
+            </div>
+        </div>
+    </div>
+    <div id="telaCriacao" class="painel-criacao hidden">
+        <section id="ladoFormulario" class="caixa-bloco formulario-dados">
+            <h2 style="font-size: 1.6rem; border-bottom: 3px solid black; padding-bottom: 5px; margin-bottom: 5px;">Currículo Profissional</h2>
+          
+            <div class="campo-grupo">
+                <label>Nome Completo:</label>
+                <input type="text" id="inNome" oninput="atualizarPreview()" placeholder="Ex: Silvia Q. Almeida">
+            </div>
+            <div class="campo-grupo">
+                <label>Dados de Contato (Cargo, Tel, E-mail, LinkedIn):</label>
+                <textarea id="inContato" oninput="atualizarPreview()" placeholder="Arquiteta&#10;(XX) XXXXX-XXXX&#10;silvia.almeida@email.com&#10;://linkedin.com" style="min-height: 80px;"></textarea>
+            </div>
+            <div class="campo-grupo">
+                <label>Resumo Profissional:</label>
+                <textarea id="inDinamico1" oninput="atualizarPreview()" placeholder="Estudante proativa, organizada e comunicativa..."></textarea>
+            </div>
+            <div class="campo-grupo">
+                <label>Educação e Formação:</label>
+                <textarea id="inDinamico2" oninput="atualizarPreview()" placeholder="Bacharelado — Arquitetura e Urbanismo..."></textarea>
+            </div>
+            <div class="campo-grupo">
+                <label>Experiência Laboral:</label>
+                <textarea id="inExperiencia" oninput="atualizarPreview()" placeholder="Estágio na Empresa X..."></textarea>
+            </div>
+            <div class="campo-grupo">
+                <label>Competências e Informações (Coluna 1):</label>
+                <textarea id="inHabilidades1" oninput="atualizarPreview()" placeholder="• Desenho&#10;• Trabalho em equipe"></textarea>
+            </div>
+            <div class="campo-grupo">
+                <label>Competências e Informações (Coluna 2):</label>
+                <textarea id="inHabilidades2" oninput="atualizarPreview()" placeholder="• Inglês fluente&#10;• Organização"></textarea>
+            </div>
+          
+            <div style="display: flex; gap: 15px; justify-content: center; margin-top: 5px;">
+                <div class="botao-oval" onclick="voltarInicio()">Voltar</div>
+                <div class="botao-oval" style="background: #a3c0b5; color: black;" onclick="baixarPDF()">Salvar PDF</div>
+            </div>
+        </section>
+        <section id="ladoPreview" class="caixa-bloco" style="background: #efefef;">
+            <h2 style="font-size: 1.4rem; margin-bottom: 15px;">Visualização da Folha (A4)</h2>
+          
+            <div id="documento-curriculo" class="area-pdf-container">
+                <div class="pdf-cabecalho">
+                    <div id="outNome" class="pdf-nome">Seu Nome</div>
+                    <div id="outContato" class="pdf-dados-contato">Cargo / Profissão&#10;Telefone&#10;E-mail&#10;LinkedIn</div>
+                </div>
+              
+                <div class="pdf-secao">
+                    <h3>Resumo Profissional</h3>
+                    <p id="outDinamico1">Detalhamento do seu perfil profissional...</p>
+                </div>
+                <div class="pdf-secao">
+                    <h3>Educação</h3>
+                    <p id="outDinamico2">Suas faculdades, escolas ou formações...</p>
+                </div>
+                <div class="pdf-secao">
+                    <h3>Experiência Laboral</h3>
+                    <p id="outExperiencia">Cargos e empresas onde já atuou...</p>
+                </div>
+                <div class="pdf-secao">
+                    <h3>Competências e Informações</h3>
+                    <div class="pdf-grid-duplo">
+                        <div id="outHabilidades1" style="white-space: pre-wrap; font-size: 0.95rem;">• Item 1</div>
+                        <div id="outHabilidades2" style="white-space: pre-wrap; font-size: 0.95rem;">• Item 2</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<script>
+let tipoAtual = 'profissional';
+
+function abrirCriador() {
+    document.getElementById('telaInicial').classList.add('hidden');
+    document.getElementById('telaCriacao').classList.remove('hidden');
+  
+    document.getElementById('textoApresentacao').innerHTML = "<strong>Preencha os campos!</strong><br>Digite seus dados no formulário ao lado e veja o resultado na folha A4 em tempo real.";
+  
+    document.getElementById('inNome').value = "";
+    document.getElementById('inContato').value = "";
+    document.getElementById('inDinamico1').value = "";
+    document.getElementById('inDinamico2').value = "";
+    document.getElementById('inExperiencia').value = "";
+    document.getElementById('inHabilidades1').value = "";
+    document.getElementById('inHabilidades2').value = "";
+    atualizarPreview();
+}
+
+function voltarInicio() {
+    document.getElementById('telaCriacao').classList.add('hidden');
+    document.getElementById('telaInicial').classList.remove('hidden');
+  
+    document.getElementById('textoApresentacao').innerHTML = "<strong>Bora Trampar!</strong><br>Monte seu currículo profissional de forma rápida, simples e exporte direto para PDF.";
+}
+
+function atualizarPreview() {
+    document.getElementById('outNome').innerText = document.getElementById('inNome').value || "Seu Nome";
+  
+    const contatoPadrao = "Cargo / Profissão\nTelefone\nE-mail\nLinkedIn";
+    document.getElementById('outContato').innerText = document.getElementById('inContato').value || contatoPadrao;
+  
+    document.getElementById('outDinamico1').innerText = document.getElementById('inDinamico1').value || "Detalhamento do seu perfil...";
+    document.getElementById('outDinamico2').innerText = document.getElementById('inDinamico2').value || "Suas formações acadêmicas...";
+    document.getElementById('outExperiencia').innerText = document.getElementById('inExperiencia').value || "Cargos e histórico de empresas...";
+  
+    document.getElementById('outHabilidades1').innerText = document.getElementById('inHabilidades1').value || "• Tópico Coluna A";
+    document.getElementById('outHabilidades2').innerText = document.getElementById('inHabilidades2').value || "• Tópico Coluna B";
+}
+
+function baixarPDF() {
+    const nomeDigitado = document.getElementById('inNome').value || "curriculo";
+    const tituloOriginal = document.title;
+  
+    document.title = nomeDigitado.toLowerCase().replace(/\s+/g, '_') + "_profissional";
+  
+    const formulario = document.getElementById('ladoFormulario');
+    const topoSite = document.getElementById('topoSite');
+    const painelCriacao = document.getElementById('telaCriacao');
+    const caixaPreview = document.getElementById('ladoPreview');
+    const botaoHome = document.querySelector('.home');
+  
+    formulario.style.display = 'none';
+    if(topoSite) topoSite.style.display = 'none';
+    if(botaoHome) botaoHome.style.display = 'none';
+  
+    painelCriacao.style.display = 'block';
+    caixaPreview.style.border = 'none';
+    caixaPreview.style.boxShadow = 'none';
+    caixaPreview.style.background = 'transparent';
+    caixaPreview.style.padding = '0';
+    caixaPreview.querySelector('h2').style.display = 'none';
+  
+    setTimeout(() => {
+        window.print();
+      
+        formulario.style.display = '';
+        if(topoSite) topoSite.style.display = '';
+        if(botaoHome) botaoHome.style.display = '';
+        painelCriacao.style.display = '';
+        caixaPreview.style.border = '';
+        caixaPreview.style.boxShadow = '';
+        caixaPreview.style.background = '';
+        caixaPreview.style.padding = '';
+        caixaPreview.querySelector('h2').style.display = '';
+        document.title = tituloOriginal;
+    }, 50);
+}
+</script>
+</body>
+</html>
